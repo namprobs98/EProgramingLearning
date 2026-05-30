@@ -8,6 +8,7 @@ export default function RegisterPage() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState(null);
+  const [verifyLink, setVerifyLink] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -20,10 +21,15 @@ export default function RegisterPage() {
     setLoading(true);
     setError(null);
     setMessage(null);
+    setVerifyLink(null);
     try {
       const { data } = await register(form);
       setMessage(data.message || t('auth.registerSuccess'));
-      setTimeout(() => navigate('/login'), 3000);
+      if (data.data?.verificationLink) {
+        setVerifyLink(data.data.verificationLink);
+      } else {
+        setTimeout(() => navigate('/login'), 3000);
+      }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -35,6 +41,14 @@ export default function RegisterPage() {
     <div className="page-center">
       <h1 className="page-title">{t('auth.registerTitle')}</h1>
       {message && <div className="alert alert-success">{message}</div>}
+      {verifyLink && (
+        <div className="card" style={{ marginBottom: '1rem', wordBreak: 'break-all' }}>
+          <p style={{ marginBottom: '0.5rem', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+            {t('auth.verifyLinkDev')}
+          </p>
+          <a href={verifyLink}>{verifyLink}</a>
+        </div>
+      )}
       {error && <div className="alert alert-error">{error}</div>}
       <form onSubmit={handleSubmit} className="card">
         <div className="form-group">

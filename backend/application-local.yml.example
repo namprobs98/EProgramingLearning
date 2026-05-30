@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    username: root
+    password: YOUR_MYSQL_PASSWORD
+
+  # --- FPT / Microsoft 365 — copy y chang app đã gửi mail thành công ---
+  mail:
+    host: smtp.office365.com
+    port: 587
+    username: your-account@fpt.edu.vn
+    password: "your-password-or-app-password"
+    properties:
+      mail:
+        debug: true
+
+app:
+  mail:
+    provider: smtp
+
+  # --- Gmail (bật 2FA, tạo App Password) ---
+  # mail:
+  #   host: smtp.gmail.com
+  #   port: 587
+  #   username: your@gmail.com
+  #   password: YOUR_16_CHAR_APP_PASSWORD

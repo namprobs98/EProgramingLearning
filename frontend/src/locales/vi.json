@@ -25,7 +25,8 @@
     "verifyTitle": "Xác thực email",
     "verifySuccess": "Xác thực email thành công! Bạn có thể đăng nhập.",
     "verifyFail": "Xác thực thất bại. Token không hợp lệ hoặc đã hết hạn.",
-    "verifying": "Đang xác thực email..."
+    "verifying": "Đang xác thực email...",
+    "verifyLinkDev": "Link kích hoạt (chế độ dev — SMTP FPT thường bị chặn):"
   },
   "home": {
     "heroTitle": "Bắt đầu hành trình lập trình của bạn",

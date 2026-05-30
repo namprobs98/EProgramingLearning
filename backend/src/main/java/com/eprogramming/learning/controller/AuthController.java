@@ -4,6 +4,7 @@ import com.eprogramming.learning.dto.request.LoginRequest;
 import com.eprogramming.learning.dto.request.RegisterRequest;
 import com.eprogramming.learning.dto.response.ApiResponse;
 import com.eprogramming.learning.dto.response.AuthResponse;
+import com.eprogramming.learning.dto.response.RegisterResponse;
 import com.eprogramming.learning.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +19,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<Void>> register(@Valid @RequestBody RegisterRequest request) {
-        authService.register(request);
-        return ResponseEntity.ok(ApiResponse.ok(
-                "Registration successful. Please check your email to activate your account."));
+    public ResponseEntity<ApiResponse<RegisterResponse>> register(@Valid @RequestBody RegisterRequest request) {
+        RegisterResponse result = authService.register(request);
+        String message = result.getVerificationLink() != null
+                ? "Registration successful (MOCK mail). Use the link below or set MAIL_MOCK=false in .env."
+                : "Registration successful. Please check your email to activate your account.";
+        return ResponseEntity.ok(ApiResponse.ok(message, result));
     }
 
     @GetMapping("/verify")

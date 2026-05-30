@@ -1,0 +1,14 @@
+# Dùng sau: docker compose up -d
+# Chạy: mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=docker"
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/eprogramming_learning?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: eprog123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect

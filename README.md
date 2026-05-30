@@ -24,21 +24,43 @@ EProgramingLearning/
 mysql -u root -p < database/schema.sql
 ```
 
-Chỉnh `backend/src/main/resources/application.yml` nếu user/password MySQL khác `root` / `root`.
+### Lỗi `Access denied for user 'root'`
+
+Bạn đang chạy profile **mysql** nhưng mật khẩu sai. Chọn một trong hai:
+
+- Chạy **không cần MySQL**: `mvn spring-boot:run` (profile `dev` — mặc định)
+- Hoặc dùng Docker: `docker compose up -d` + profile `docker`
 
 ## 2. Backend
 
-```bash
-cd backend
-# Tùy chọn: set biến môi trường mail & JWT
-set MAIL_USERNAME=your@gmail.com
-set MAIL_PASSWORD=your-app-password
-set JWT_SECRET=YourSecretKeyAtLeast32Chars!!!!!!!!
+### Cách nhanh — H2 (mặc định, không cần MySQL)
 
-mvn spring-boot:run
+```powershell
+cd backend
+.\run.ps1
 ```
 
-API chạy tại `http://localhost:8080`.
+Hoặc `mvn spring-boot:run` — nếu báo **Port 8080 was already in use**, chạy `.\run.ps1` (tự tắt process cũ) hoặc đóng terminal đang chạy backend trước đó.
+
+Profile `dev` dùng H2 in-memory, tự tạo bảng + dữ liệu mẫu. API: `http://localhost:8080`
+
+### MySQL thật — Docker (mật khẩu cố định `eprog123`)
+
+```powershell
+docker compose up -d
+cd backend
+mvn spring-boot:run "-Dspring-boot.run.jvmArguments=-Dspring.profiles.active=docker"
+```
+
+### MySQL thật — MySQL cài trên máy
+
+1. Chạy `database/schema.sql`
+2. Sửa mật khẩu trong `backend/application-local.yml`
+3. Chạy:
+
+```powershell
+mvn spring-boot:run "-Dspring-boot.run.jvmArguments=-Dspring.profiles.active=mysql"
+```
 
 ### API chính
 
@@ -74,11 +96,35 @@ npm run dev
 - **UI:** `react-i18next` — `frontend/src/locales/vi.json`, `en.json`
 - **Dữ liệu DB:** header `Accept-Language` → backend trả `title_vi` / `title_en`, v.v.
 
-## Gmail SMTP
+## Cấu hình gửi email (giống todo-backend)
 
-1. Bật xác minh 2 bước trên Google Account.
-2. Tạo [App Password](https://myaccount.google.com/apppasswords).
-3. Gán `MAIL_USERNAME` và `MAIL_PASSWORD` khi chạy backend.
+App todo của bạn gửi mail qua **Gmail SMTP** — người **nhận** có thể là `@fpt.edu.vn`, nhưng tài khoản **gửi** phải là Gmail + App Password.
+
+```powershell
+$env:MAIL_USERNAME="your@gmail.com"
+$env:MAIL_PASSWORD="your-gmail-16-char-app-password"
+$env:MAIL_MOCK="false"
+cd backend
+.\run.ps1
+```
+
+Hoặc ghi trong `backend/application-local.yml`:
+
+```yaml
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: your@gmail.com
+    password: "gmail-app-password"
+app:
+  mail:
+    mock: false
+```
+
+Bật 2FA Gmail → tạo [App Password](https://myaccount.google.com/apppasswords).
+
+`app.mail.mock=true` hoặc thiếu `MAIL_USERNAME`/`MAIL_PASSWORD` → chỉ in link ra log (CONSOLE), không gửi mail thật.
 
 ## Dữ liệu mẫu
 

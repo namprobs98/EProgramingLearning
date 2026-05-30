@@ -25,7 +25,8 @@
     "verifyTitle": "Email verification",
     "verifySuccess": "Email verified successfully! You can now log in.",
     "verifyFail": "Verification failed. Invalid or expired token.",
-    "verifying": "Verifying your email..."
+    "verifying": "Verifying your email...",
+    "verifyLinkDev": "Activation link (dev mode — use when email cannot be sent):"
   },
   "home": {
     "heroTitle": "Start your programming journey",

@@ -31,7 +31,7 @@ CREATE TABLE users (
 -- -----------------------------------------------------------------------------
 CREATE TABLE email_verification_tokens (
   id            BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  token         CHAR(36)        NOT NULL COMMENT 'UUID string',
+  token         VARCHAR(36)     NOT NULL COMMENT 'UUID string',
   user_id       BIGINT UNSIGNED NOT NULL,
   expiry_date   DATETIME        NOT NULL,
   created_at    TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,

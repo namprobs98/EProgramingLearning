@@ -1,0 +1,13 @@
+# Profile mysql — mật khẩu: application-local.yml hoặc DB_PASSWORD (mặc định 123456)
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/eprogramming_learning?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:123456}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect

@@ -1,0 +1,5 @@
+# Copy -> application-local.yml (cung thu muc) HOAC dung bien moi truong MAIL_*
+spring:
+  mail:
+    username: your@gmail.com
+    password: "your-gmail-app-password-16-chars"

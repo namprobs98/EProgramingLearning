@@ -4,6 +4,7 @@ import com.eprogramming.learning.config.AppProperties;
 import com.eprogramming.learning.dto.request.LoginRequest;
 import com.eprogramming.learning.dto.request.RegisterRequest;
 import com.eprogramming.learning.dto.response.AuthResponse;
+import com.eprogramming.learning.dto.response.RegisterResponse;
 import com.eprogramming.learning.entity.EmailVerificationToken;
 import com.eprogramming.learning.entity.Role;
 import com.eprogramming.learning.entity.User;
@@ -13,6 +14,7 @@ import com.eprogramming.learning.repository.UserRepository;
 import com.eprogramming.learning.security.JwtService;
 import com.eprogramming.learning.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,8 +38,11 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
+    @Value("${app.mail.mock:false}")
+    private boolean mockMail;
+
     @Transactional
-    public void register(RegisterRequest request) {
+    public RegisterResponse register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail().trim().toLowerCase())) {
             throw new ApiException("Email is already registered", HttpStatus.CONFLICT);
         }
@@ -65,6 +70,11 @@ public class AuthService {
 
         String link = appProperties.getFrontendUrl() + "/verify-email?token=" + tokenValue;
         mailService.sendVerificationEmail(user.getEmail(), link);
+
+        if (mockMail) {
+            return RegisterResponse.builder().verificationLink(link).build();
+        }
+        return RegisterResponse.builder().build();
     }
 
     @Transactional
