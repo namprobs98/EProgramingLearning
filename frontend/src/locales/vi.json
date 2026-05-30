@@ -1,0 +1,49 @@
+{
+  "app": {
+    "name": "E-Programming Learning",
+    "tagline": "Học lập trình đa ngôn ngữ trực tuyến"
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "courses": "Khóa học",
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "logout": "Đăng xuất",
+    "hello": "Xin chào, {{name}}"
+  },
+  "auth": {
+    "name": "Họ và tên",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "registerTitle": "Đăng ký tài khoản",
+    "loginTitle": "Đăng nhập",
+    "registerBtn": "Đăng ký",
+    "loginBtn": "Đăng nhập",
+    "hasAccount": "Đã có tài khoản?",
+    "noAccount": "Chưa có tài khoản?",
+    "registerSuccess": "Đăng ký thành công! Vui lòng kiểm tra email để kích hoạt tài khoản.",
+    "verifyTitle": "Xác thực email",
+    "verifySuccess": "Xác thực email thành công! Bạn có thể đăng nhập.",
+    "verifyFail": "Xác thực thất bại. Token không hợp lệ hoặc đã hết hạn.",
+    "verifying": "Đang xác thực email..."
+  },
+  "home": {
+    "heroTitle": "Bắt đầu hành trình lập trình của bạn",
+    "heroDesc": "Khóa học Java, Python, JavaScript, C++ và nhiều ngôn ngữ khác.",
+    "browseCourses": "Xem khóa học"
+  },
+  "courses": {
+    "title": "Khóa học",
+    "filterAll": "Tất cả",
+    "lessons": "bài học",
+    "viewCourse": "Xem chi tiết",
+    "lessonList": "Danh sách bài học",
+    "codeTemplate": "Mã mẫu",
+    "empty": "Chưa có khóa học nào."
+  },
+  "common": {
+    "loading": "Đang tải...",
+    "error": "Đã xảy ra lỗi",
+    "language": "Ngôn ngữ"
+  }
+}
